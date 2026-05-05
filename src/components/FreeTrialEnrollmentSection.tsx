@@ -76,7 +76,64 @@ export default function FreeTrialEnrollmentSection() {
   const [countrySearch, setCountrySearch] = useState("");
   const [phoneSearch, setPhoneSearch] = useState("");
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   const [isMounted, setIsMounted] = useState(false);
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg("");
+
+    const formData = new FormData(e.currentTarget);
+    const studentName = formData.get("studentName") as string;
+    const phone = formData.get("phone") as string;
+    const messageContent = formData.get("message") as string;
+
+    const phonePrefix = COUNTRIES.find(c => c.code === selectedPhoneCountry)?.dial || "";
+    const fullPhone = `${phonePrefix} ${phone}`;
+
+    const countryName = COUNTRIES.find(c => c.code === selectedCountry)?.name || "";
+
+    const combinedMessage = `
+Free Trial Request from Homepage
+-------------------------
+Age: ${selectedAge || 'Not selected'}
+Course: ${selectedCourse || 'Not selected'}
+Country: ${countryName || 'Not selected'}
+
+Message:
+${messageContent || 'None'}
+    `.trim();
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: studentName,
+          whatsapp: fullPhone,
+          message: combinedMessage
+        }),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        e.currentTarget.reset();
+        setSelectedCourse("");
+        setSelectedAge("");
+        setSelectedCountry("");
+      } else {
+        setErrorMsg("Failed to send request. Please try again.");
+      }
+    } catch (err) {
+      setErrorMsg("An error occurred. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true);
@@ -185,7 +242,25 @@ export default function FreeTrialEnrollmentSection() {
               </div>
 
               {isMounted ? (
-                <form className="flex flex-col gap-5">
+                isSuccess ? (
+                  <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4 py-8">
+                    <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mb-2">
+                      <CheckCircle2 className="w-8 h-8 text-teal-600" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-[#081a33]">Request Sent!</h4>
+                    <p className="text-slate-600 max-w-[280px]">
+                      JazakAllah Khair! We have received your request and will contact you via WhatsApp shortly to schedule your trial class.
+                    </p>
+                    <button 
+                      onClick={() => setIsSuccess(false)}
+                      className="mt-4 px-6 py-2.5 bg-[#081a33] text-white font-semibold rounded-xl shadow-md hover:bg-[#0a2140] transition-colors"
+                    >
+                      Book Another Trial
+                    </button>
+                  </div>
+                ) : (
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
                   {/* 1. Student Name */}
                 <div className="relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -193,6 +268,7 @@ export default function FreeTrialEnrollmentSection() {
                   </div>
                   <input 
                     type="text" 
+                    name="studentName"
                     placeholder="Student Name *" 
                     required
                     className="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl text-[15px] text-[#081a33] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium"
@@ -355,6 +431,7 @@ export default function FreeTrialEnrollmentSection() {
                     <div className="relative flex-grow">
                       <input 
                         type="tel" 
+                        name="phone"
                         placeholder="Phone Number *" 
                         required
                         className="w-full pl-4 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-r-xl text-[15px] text-[#081a33] placeholder:text-slate-400 focus:outline-none focus:border-teal-500 transition-all font-medium border-l-0"
@@ -480,6 +557,7 @@ export default function FreeTrialEnrollmentSection() {
                     <MessageSquare className="h-5 w-5 text-slate-400 group-focus-within:text-teal-500 transition-colors" />
                   </div>
                   <textarea 
+                    name="message"
                     placeholder="Message / Special Requirement" 
                     rows={3}
                     className="w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl text-[15px] text-[#081a33] placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium resize-none"
@@ -489,9 +567,12 @@ export default function FreeTrialEnrollmentSection() {
                 {/* Submit Button */}
                 <button 
                   type="submit"
-                  className="mt-2 w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-[#081a33] to-teal-700 hover:from-[#0a2140] hover:to-teal-600 text-white rounded-xl font-bold text-[16px] shadow-[0_10px_20px_rgba(20,184,166,0.25)] hover:shadow-[0_15px_25px_rgba(20,184,166,0.35)] transition-all hover:-translate-y-0.5 border border-teal-600/50"
+                  disabled={isSubmitting}
+                  className="mt-2 w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-[#081a33] to-teal-700 hover:from-[#0a2140] hover:to-teal-600 text-white rounded-xl font-bold text-[16px] shadow-[0_10px_20px_rgba(20,184,166,0.25)] hover:shadow-[0_15px_25px_rgba(20,184,166,0.35)] transition-all hover:-translate-y-0.5 border border-teal-600/50 disabled:opacity-70 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                 >
-                  Book 3 Days Free Trial <Send className="w-4 h-4 ml-1" />
+                  {isSubmitting ? "Sending..." : (
+                    <>Book 3 Days Free Trial <Send className="w-4 h-4 ml-1" /></>
+                  )}
                 </button>
 
                 {/* Support Text */}
@@ -499,6 +580,7 @@ export default function FreeTrialEnrollmentSection() {
                   <p className="text-[13px] text-slate-500 font-medium">Prefer WhatsApp? We’ll contact you after your request.</p>
                 </div>
               </form>
+              )
               ) : (
                 <div className="flex flex-col gap-5 min-h-[400px] items-center justify-center">
                   <Loader2 className="w-8 h-8 text-teal-500 animate-spin" />
