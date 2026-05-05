@@ -148,20 +148,20 @@ export default function Home() {
                     {slides[currentSlide].text}
                   </p>
 
-                  <div className="flex flex-wrap items-center gap-4 mb-8">
+                  <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 mb-8">
                     {slides[currentSlide].buttons.map((btn, i) => (
-                      <Link key={i} href={btn.href} className={`px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center shadow-md hover:-translate-y-1 ${btn.primary ? 'bg-teal-500 hover:bg-teal-400 text-white shadow-[0_10px_30px_rgba(20,184,166,0.3)]' : 'bg-[#081a33]/40 border border-white/20 text-white hover:bg-white/10 backdrop-blur-md'}`}>
+                      <Link key={i} href={btn.href} className={`w-full sm:w-auto px-6 py-3.5 md:px-8 md:py-4 rounded-full font-bold transition-all flex items-center justify-center shadow-md hover:-translate-y-1 ${btn.primary ? 'bg-teal-500 hover:bg-teal-400 text-white shadow-[0_10px_30px_rgba(20,184,166,0.3)]' : 'bg-[#081a33]/40 border border-white/20 text-white hover:bg-white/10 backdrop-blur-md'}`}>
                         {btn.text}
                       </Link>
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2.5 md:gap-3">
                     {slides[currentSlide].chips.map((chip, i) => {
                       const Icon = chip.icon;
                       return (
-                        <div key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark border-white/10 text-sm font-bold text-slate-200 shadow-sm bg-white/5 backdrop-blur-md">
-                          <Icon className="w-4 h-4 text-teal-400 opacity-90" />
+                        <div key={i} className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass-dark border-white/10 text-[12px] md:text-sm font-bold text-slate-200 shadow-sm bg-white/5 backdrop-blur-md">
+                          <Icon className="w-3.5 h-3.5 md:w-4 md:h-4 text-teal-400 opacity-90" />
                           {chip.text}
                         </div>
                       )
@@ -268,7 +268,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
             
             {/* Left Side: Visual Setup */}
-            <div className="w-full lg:w-[48%] relative flex justify-center lg:justify-start pt-10 lg:pt-0">
+            <div className="w-full lg:w-[48%] relative flex justify-center lg:justify-start pt-10 pb-16 lg:pt-0 lg:pb-0">
               
               {/* Vertical Accent Bar (Right side of image) */}
               <div className="absolute -right-3 lg:-right-6 top-[15%] bottom-[20%] w-3 lg:w-4 rounded-full shadow-[0_0_20px_rgba(20,184,166,0.15)] z-0 flex flex-col overflow-hidden">
@@ -323,37 +323,37 @@ export default function Home() {
                 </motion.h2>
 
                 {/* Paragraphs */}
-                <motion.p variants={fadeUp} className="text-[17px] md:text-[18px] text-[#081a33]/80 font-medium mb-6 leading-[1.7] max-w-[92%]">
+                <motion.p variants={fadeUp} className="text-[16px] md:text-[18px] text-[#081a33]/80 font-medium mb-6 leading-[1.7] max-w-full md:max-w-[92%]">
                   Let’s Join Quran offers a caring and flexible online learning experience for children and adults. Our academy focuses on one-to-one attention, experienced teachers, and structured lessons designed for steady progress from home.
                 </motion.p>
-                <motion.p variants={fadeUp} className="text-[17px] md:text-[18px] text-[#081a33]/80 font-medium mb-10 leading-[1.7] max-w-[92%]">
+                <motion.p variants={fadeUp} className="text-[16px] md:text-[18px] text-[#081a33]/80 font-medium mb-10 leading-[1.7] max-w-full md:max-w-[92%]">
                   From Noorani Qaida and Quran reading to Tajweed, Hifz support, and essential Islamic learning, each student is guided according to their level in a comfortable and supportive environment.
                 </motion.p>
 
                 {/* Trust Pills */}
-                <motion.div variants={fadeUp} className="flex flex-wrap gap-4 mt-2">
+                <motion.div variants={fadeUp} className="flex flex-wrap gap-3 md:gap-4 mt-2">
                   {/* Pill 1: Personal Classes */}
-                  <div className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(20,184,166,0.12)] hover:border-teal-100 transition-all duration-300">
-                    <div className="w-6 h-6 rounded-full bg-teal-500 text-white flex items-center justify-center shrink-0 shadow-sm">
-                      <span className="text-[16px] font-medium leading-none mb-0.5">+</span>
+                  <div className="group flex items-center gap-2.5 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(20,184,166,0.12)] hover:border-teal-100 transition-all duration-300">
+                    <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-teal-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                      <span className="text-[14px] md:text-[16px] font-medium leading-none mb-0.5">+</span>
                     </div>
-                    <span className="text-[14px] font-semibold text-[#081a33]">Personal Classes</span>
+                    <span className="text-[13px] md:text-[14px] font-semibold text-[#081a33]">Personal Classes</span>
                   </div>
                   
                   {/* Pill 2: Caring Teachers */}
-                  <div className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(212,175,55,0.12)] hover:border-[#d4af37]/20 transition-all duration-300">
-                    <div className="w-6 h-6 rounded-full bg-[#d4af37] text-white flex items-center justify-center shrink-0 shadow-sm">
-                      <span className="text-[16px] font-medium leading-none mb-0.5">+</span>
+                  <div className="group flex items-center gap-2.5 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(212,175,55,0.12)] hover:border-[#d4af37]/20 transition-all duration-300">
+                    <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#d4af37] text-white flex items-center justify-center shrink-0 shadow-sm">
+                      <span className="text-[14px] md:text-[16px] font-medium leading-none mb-0.5">+</span>
                     </div>
-                    <span className="text-[14px] font-semibold text-[#081a33]">Caring Teachers</span>
+                    <span className="text-[13px] md:text-[14px] font-semibold text-[#081a33]">Caring Teachers</span>
                   </div>
                   
                   {/* Pill 3: Flexible Timings */}
-                  <div className="group flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(135,206,235,0.2)] hover:border-sky-200 transition-all duration-300">
-                    <div className="w-6 h-6 rounded-full bg-[#87ceeb] text-white flex items-center justify-center shrink-0 shadow-sm">
-                      <span className="text-[16px] font-medium leading-none mb-0.5">+</span>
+                  <div className="group flex items-center gap-2.5 px-4 py-2 md:px-5 md:py-2.5 rounded-full bg-white/70 backdrop-blur-sm border border-slate-200/50 shadow-[0_8px_20px_rgba(8,26,51,0.03)] hover:shadow-[0_8px_25px_rgba(135,206,235,0.2)] hover:border-sky-200 transition-all duration-300">
+                    <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-[#87ceeb] text-white flex items-center justify-center shrink-0 shadow-sm">
+                      <span className="text-[14px] md:text-[16px] font-medium leading-none mb-0.5">+</span>
                     </div>
-                    <span className="text-[14px] font-semibold text-[#081a33]">Flexible Timings</span>
+                    <span className="text-[13px] md:text-[14px] font-semibold text-[#081a33]">Flexible Timings</span>
                   </div>
                 </motion.div>
 
@@ -516,7 +516,7 @@ export default function Home() {
                 <motion.div 
                   key={i} 
                   variants={fadeUp} 
-                  className={`group relative flex flex-col items-center text-center bg-gradient-to-b from-[#0e172a] to-[#040914] rounded-3xl p-6 lg:p-5 xl:p-6 border border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.1)] w-full sm:w-[320px] lg:w-[180px] flex-shrink-0 ${feature.offset} hover:-translate-y-2 transition-all duration-500`}
+                  className={`group relative flex flex-col items-center text-center bg-gradient-to-b from-[#0e172a] to-[#040914] rounded-3xl p-5 md:p-6 lg:p-5 xl:p-6 border border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.12),inset_0_1px_1px_rgba(255,255,255,0.1)] w-[95%] sm:w-[320px] lg:w-[180px] flex-shrink-0 ${feature.offset} hover:-translate-y-2 transition-all duration-500`}
                 >
                   {/* Powerful colored background ambient glow for the whole card */}
                   <div className={`absolute inset-0 ${feature.glow} blur-[60px] opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500 pointer-events-none rounded-3xl`}></div>
@@ -525,14 +525,14 @@ export default function Home() {
                   <div className={`absolute inset-0 rounded-3xl border border-transparent group-hover:${feature.border} transition-colors duration-500`}></div>
                   
                   {/* Inner premium glass icon box */}
-                  <div className={`w-14 h-14 rounded-[14px] bg-gradient-to-b from-white/10 to-transparent border border-white/20 flex items-center justify-center mb-5 shadow-xl relative z-10 backdrop-blur-xl transition-all duration-500 group-hover:scale-110 group-hover:border-white/30`}>
-                    <feature.icon className={`w-6 h-6 text-white`} strokeWidth={1.5} />
+                  <div className={`w-12 h-12 md:w-14 md:h-14 rounded-[14px] bg-gradient-to-b from-white/10 to-transparent border border-white/20 flex items-center justify-center mb-3 md:mb-5 shadow-xl relative z-10 backdrop-blur-xl transition-all duration-500 group-hover:scale-110 group-hover:border-white/30`}>
+                    <feature.icon className={`w-5 h-5 md:w-6 md:h-6 text-white`} strokeWidth={1.5} />
                     {/* Intense core glow exactly behind the icon */}
                     <div className={`absolute inset-0 ${feature.glow} blur-md opacity-50 rounded-[14px] -z-10 group-hover:opacity-70 transition-opacity`}></div>
                   </div>
                   
                   {/* Gradient Title */}
-                  <h3 className={`text-[15px] font-bold mb-2 relative z-10 text-transparent bg-clip-text bg-gradient-to-br ${feature.textGradient} whitespace-pre-line tracking-tight leading-snug`}>
+                  <h3 className={`text-[15px] font-bold mb-1.5 md:mb-2 relative z-10 text-transparent bg-clip-text bg-gradient-to-br ${feature.textGradient} whitespace-pre-line tracking-tight leading-snug`}>
                     {feature.title}
                   </h3>
                   
